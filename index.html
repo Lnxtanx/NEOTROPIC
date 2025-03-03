@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+
+  <!-- Ensures proper rendering and touch zooming on mobile devices -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- For older IE compatibility -->
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <!-- Primary Meta Tags -->
+  <title>Neotropic | Futuristic Image Repository</title>
+  <meta name="description" content="Discover, upload, and explore next-generation imagery from across the multiverse.">
+  <meta name="keywords" content="futuristic, images, repository, neotropic, gallery, upload, multiverse">
+  <meta name="author" content="Neotropic">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Neotropic | Futuristic Image Repository">
+  <meta property="og:description" content="Discover, upload, and explore next-generation imagery from across the multiverse.">
+  <!-- Replace 'image_url.jpg' with your actual image URL -->
+  <meta property="og:image" content="https://example.com/image_url.jpg">
+  <meta property="og:url" content="https://example.com/neotropic">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Neotropic | Futuristic Image Repository">
+  <meta name="twitter:description" content="Discover, upload, and explore next-generation imagery from across the multiverse.">
+  <meta name="twitter:image" content="https://example.com/image_url.jpg">
+
+  <!-- Tailwind CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="/src/styles.css">
+  <link rel="stylesheet" href="/src/animations.css">
+
+  <!-- Optional Confetti -->
+  <script src="https://cdn.jsdelivr.net/npm/js-confetti@latest/dist/js-confetti.browser.js"></script>
+</head>
+
+<body class="bg-gradient-to-br from-gray-900 via-indigo-900 to-black min-h-screen text-white font-rajdhani overflow-x-hidden">
+  <!-- Navigation -->
+  <nav id="navbar" class="glass-nav fixed w-full z-50 p-4">
+    <div class="container mx-auto flex justify-between items-center">
+      <!-- Logo -->
+      <a href="/" class="logo-container">
+        <h1 class="text-3xl font-orbitron font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-600">
+          NEOTROPIC
+        </h1>
+        <div class="logo-glow"></div>
+      </a>
+
+      <!-- Desktop Navigation -->
+      <div class="hidden md:flex space-x-4">
+        <a href="/" class="nav-link">Home</a>
+        <a href="/src/home.html" class="nav-link">Gallery</a>
+        <a href="/src/upload.html" class="nav-link">Upload</a>
+      </div>
+
+      <!-- Auth Buttons -->
+      <div class="auth-buttons">
+        <a href="/src/login.html" id="loginBtn" class="cyber-button mr-2">
+          <span>Login</span>
+          <i></i>
+        </a>
+        <a href="/src/signup.html" id="signupBtn" class="cyber-button-secondary">
+          <span>Sign Up</span>
+          <i></i>
+        </a>
+      </div>
+
+      <!-- Mobile Menu Button -->
+      <div class="md:hidden">
+        <button id="mobileMenuBtn" class="text-white">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor"
+               viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M4 6h16M4 12h16M4 18h16"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobileMenu" class="glass-menu hidden md:hidden absolute w-full left-0 right-0 mt-4 p-4">
+      <a href="/" class="block py-2 px-4 hover:bg-indigo-900 rounded">Home</a>
+      <a href="/src/home.html" class="block py-2 px-4 hover:bg-indigo-900 rounded">Gallery</a>
+      <a href="/src/upload.html" class="block py-2 px-4 hover:bg-indigo-900 rounded">Upload</a>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <header class="relative pt-32 pb-20 md:pt-40 md:pb-32 px-4">
+    <div class="neon-grid"></div>
+    <div class="container mx-auto text-center relative z-10">
+      <h1 class="text-4xl md:text-6xl lg:text-7xl font-orbitron font-bold mb-4 animate-pulse-slow text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-purple-500 to-pink-500">
+        FUTURISTIC IMAGE REPOSITORY
+      </h1>
+      <p class="text-xl md:text-2xl mb-8 max-w-3xl mx-auto text-blue-100">
+        Discover, upload, and explore next-generation imagery from across the multiverse.
+      </p>
+      <div class="flex flex-col md:flex-row justify-center gap-4">
+        <a href="/src/home.html" class="cyber-button-large">
+          <span>EXPLORE GALLERY</span>
+          <i></i>
+        </a>
+        <a href="/src/upload.html" class="cyber-button-large-secondary">
+          <span>UPLOAD IMAGES</span>
+          <i></i>
+        </a>
+      </div>
+    </div>
+    <div class="absolute top-0 left-0 w-full h-full overflow-hidden -z-10">
+      <div class="floating-cube"></div>
+      <div class="floating-cube"></div>
+      <div class="floating-cube"></div>
+    </div>
+  </header>
+
+  <!-- Featured Images Section -->
+  <section class="py-16 px-4 relative">
+    <div class="glassmorphism-card p-8 rounded-2xl">
+      <h2 class="text-3xl md:text-4xl font-orbitron font-bold mb-12 text-center text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-blue-600">
+        FEATURED IMAGES
+      </h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6" id="featured-container">
+        <!-- Featured images will be loaded dynamically (via JS or Server) -->
+      </div>
+      <div class="text-center mt-10">
+        <a href="/src/home.html" class="cyber-button">
+          <span>View All Images</span>
+          <i></i>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="py-8 px-4 border-t border-indigo-800">
+    <div class="container mx-auto">
+      <div class="flex flex-col md:flex-row justify-between items-center">
+        <div class="mb-4 md:mb-0">
+          <h2 class="text-2xl font-orbitron font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-600">
+            NEOTROPIC
+          </h2>
+          <p class="text-blue-200">Futuristic Image Repository</p>
+        </div>
+        <div class="flex space-x-6">
+          <a href="#" class="text-blue-300 hover:text-white transition">About</a>
+          <a href="#" class="text-blue-300 hover:text-white transition">Privacy</a>
+          <a href="#" class="text-blue-300 hover:text-white transition">Terms</a>
+          <a href="#" class="text-blue-300 hover:text-white transition">Contact</a>
+        </div>
+      </div>
+      <div class="mt-8 text-center text-blue-400">
+        <p>&copy; 2025 Neotropic. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toggle Mobile Menu Script -->
+  <script>
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+
+    mobileMenuBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+  </script>
+</body>
+</html>

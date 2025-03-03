@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login | Neotropic</title>
+
+  <!-- Tailwind CSS -->
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+  />
+
+  <!-- Google Fonts -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&family=Rajdhani:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="animations.css" />
+
+  <!-- Inline Styles for Glassmorphism & Visibility Fixes -->
+  <style>
+    body {
+      font-family: 'Rajdhani', sans-serif;
+      background: linear-gradient(to bottom right, #0f172a, #1e293b);
+      color: #e2e8f0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .font-orbitron {
+      font-family: 'Orbitron', sans-serif;
+    }
+
+    /* Navigation Bar */
+    .nav-container {
+      width: 100%;
+      padding: 20px;
+      text-align: center;
+    }
+    .nav-container h1 {
+      font-size: 3rem;
+      font-weight: bold;
+      text-transform: uppercase;
+      text-shadow: 0px 0px 10px rgba(255, 0, 128, 0.8);
+    }
+
+    /* Login Box */
+    .glassmorphism-card {
+      background: rgba(30, 41, 59, 0.4);
+      backdrop-filter: blur(12px);
+      padding: 30px;
+      border-radius: 15px;
+      text-align: center;
+      max-width: 400px;
+      width: 100%;
+      box-shadow: 0 0 20px rgba(255, 0, 128, 0.5);
+    }
+
+    /* Input Fields */
+    .input-field {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border: 2px solid #444;
+      background: rgba(26, 32, 44, 0.9);
+      color: #ffffff;
+      border-radius: 5px;
+      font-size: 1rem;
+      transition: 0.3s;
+    }
+    .input-field:focus {
+      border-color: #ff0080;
+      outline: none;
+      box-shadow: 0 0 10px #ff0080;
+    }
+
+    /* Login Button */
+    .login-btn {
+      width: 100%;
+      padding: 12px;
+      background: #ff0080;
+      border: none;
+      color: #fff;
+      font-size: 1rem;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .login-btn:hover {
+      background: #e0006e;
+      box-shadow: 0 0 10px #ff0080;
+    }
+
+    /* Alert Messages */
+    .alert {
+      padding: 12px;
+      border-radius: 4px;
+      margin-bottom: 15px;
+    }
+    .alert-error {
+      background-color: rgba(220, 38, 38, 0.3);
+      border: 1px solid #dc2626;
+      color: #fecaca;
+    }
+    .alert-success {
+      background-color: rgba(5, 150, 105, 0.3);
+      border: 1px solid #059669;
+      color: #a7f3d0;
+    }
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Navigation -->
+  <nav class="nav-container">
+    <h1 class="text-3xl font-orbitron font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-600">
+      NEOTROPIC
+    </h1>
+  </nav>
+
+  <!-- Login Section -->
+  <section class="flex items-center justify-center flex-grow">
+    <div class="glassmorphism-card">
+      <h2
+        class="text-3xl font-orbitron font-bold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-600"
+      >
+        LOGIN
+      </h2>
+      <p class="text-blue-200 mb-6">Access your futuristic repository</p>
+
+      <div id="loginAlert" class="hidden alert"></div>
+
+      <form id="loginForm">
+        <input
+          type="email"
+          id="email"
+          class="input-field"
+          placeholder="Email"
+          required
+        />
+        <input
+          type="password"
+          id="password"
+          class="input-field"
+          placeholder="Password"
+          required
+        />
+        <button type="submit" class="login-btn">Login</button>
+      </form>
+
+      <p class="mt-6 text-sm text-blue-300">
+        Don't have an account?
+        <a href="signup.html" class="text-blue-400 hover:underline"
+          >Sign up</a
+        >
+      </p>
+    </div>
+  </section>
+
+  <!-- Supabase Login Script -->
+  <script type="module">
+    import { supabase } from "../supabase.js"; // <-- Update path as needed
+
+    document.getElementById("loginForm").addEventListener("submit", async (event) => {
+      event.preventDefault();
+
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+      const loginAlert = document.getElementById("loginAlert");
+
+      try {
+        // 1) Supabase login request
+        const { data, error } = await supabase.auth.signInWithPassword({
+          email,
+          password
+        });
+
+        if (error) {
+          loginAlert.textContent = "Login failed: " + error.message;
+          loginAlert.classList.remove("hidden", "alert-success");
+          loginAlert.classList.add("alert-error");
+          return;
+        }
+
+        // 2) Fetch user details from Supabase 'users' table by email
+        const { data: userData, error: userError } = await supabase
+          .from("users")
+          .select("*")
+          .eq("email", email)
+          .single();
+
+        if (userError) {
+          loginAlert.textContent = "Failed to fetch user details: " + userError.message;
+          loginAlert.classList.remove("hidden", "alert-success");
+          loginAlert.classList.add("alert-error");
+          return;
+        }
+
+        // 3) Store user details in localStorage (or sessionStorage)
+        localStorage.setItem("user", JSON.stringify(userData));
+
+        // 4) Provide success message & redirect
+        loginAlert.textContent = `Welcome ${userData.full_name}! Redirecting...`;
+        loginAlert.classList.remove("hidden", "alert-error");
+        loginAlert.classList.add("alert-success");
+
+        setTimeout(() => {
+          window.location.href = "home.html"; // Change to home.html or wherever
+        }, 1500);
+
+      } catch (err) {
+        loginAlert.textContent = "Unexpected error: " + err.message;
+        loginAlert.classList.remove("hidden", "alert-success");
+        loginAlert.classList.add("alert-error");
+      }
+    });
+  </script>
+</body>
+</html>
