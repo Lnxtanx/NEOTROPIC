@@ -8,5 +8,9 @@
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.11.0",
     "multer": "^1.4.5-lts.1"
+  },
+  "scripts": {
+    "start": "node server.js",
+    "build": "echo 'No build script needed'"
   }
 }
